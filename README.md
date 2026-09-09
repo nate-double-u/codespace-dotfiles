@@ -10,7 +10,8 @@ pick this repo. New codespaces then run `setup.sh`, which installs:
 - tmux config: installs TPM and plugins itself on first server start
 - `t <name>` helper (zsh and bash): attach or create a tmux session;
   bare `t` lists or fuzzy-picks
-- neovim itself (brew, else apt) if the image lacks it
+- neovim (current release tarball, else brew/apt) and tmux (brew/apt)
+  if the image lacks them
 
 ## Notes
 
