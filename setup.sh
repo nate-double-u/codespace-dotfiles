@@ -21,15 +21,41 @@ for rc in "$HOME/.zshrc" "$HOME/.bashrc"; do
   grep -qxF -- "$snippet" "$rc" || printf '\n%s\n' "$snippet" >>"$rc"
 done
 
+SUDO=sudo
+if [ "$(id -u)" = 0 ] || ! command -v sudo >/dev/null 2>&1; then SUDO=; fi
+APT_UPDATED=
+apt_install() {
+  if [ -z "$APT_UPDATED" ]; then $SUDO apt-get update -y -qq; APT_UPDATED=1; fi
+  $SUDO apt-get install -y -qq "$@"
+}
+
+if ! command -v tmux >/dev/null 2>&1; then
+  log "Installing tmux"
+  if command -v brew >/dev/null 2>&1; then
+    brew install tmux
+  elif command -v apt-get >/dev/null 2>&1; then
+    apt_install tmux
+  else
+    log "WARNING: no brew or apt-get; install tmux manually"
+  fi
+fi
+
 if ! command -v nvim >/dev/null 2>&1; then
   log "Installing neovim"
-  if command -v brew >/dev/null 2>&1; then
+  case "$(uname -s)-$(uname -m)" in
+    Linux-x86_64)  nvim_tar=nvim-linux-x86_64.tar.gz ;;
+    Linux-aarch64) nvim_tar=nvim-linux-arm64.tar.gz ;;
+    *)             nvim_tar= ;;
+  esac
+  if [ -n "$nvim_tar" ] && curl -fsSL -o /tmp/nvim.tar.gz \
+      "https://github.com/neovim/neovim/releases/latest/download/$nvim_tar"; then
+    $SUDO tar -C /opt -xzf /tmp/nvim.tar.gz
+    $SUDO ln -sf "/opt/${nvim_tar%.tar.gz}/bin/nvim" /usr/local/bin/nvim
+    rm -f /tmp/nvim.tar.gz
+  elif command -v brew >/dev/null 2>&1; then
     brew install neovim
   elif command -v apt-get >/dev/null 2>&1; then
-    SUDO=sudo
-    if [ "$(id -u)" = 0 ] || ! command -v sudo >/dev/null 2>&1; then SUDO=; fi
-    $SUDO apt-get update -y -qq
-    $SUDO apt-get install -y -qq neovim
+    apt_install neovim
   else
     log "WARNING: no brew or apt-get; install neovim manually"
   fi
