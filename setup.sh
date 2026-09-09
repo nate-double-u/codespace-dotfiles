@@ -18,7 +18,7 @@ log "Wiring portable.zsh into zsh and bash"
 snippet='[ -f "$HOME/.config/zsh/portable.zsh" ] && . "$HOME/.config/zsh/portable.zsh"'
 for rc in "$HOME/.zshrc" "$HOME/.bashrc"; do
   touch "$rc"
-  grep -qs 'config/zsh/portable.zsh' "$rc" || printf '\n%s\n' "$snippet" >>"$rc"
+  grep -qxF -- "$snippet" "$rc" || printf '\n%s\n' "$snippet" >>"$rc"
 done
 
 if ! command -v nvim >/dev/null 2>&1; then

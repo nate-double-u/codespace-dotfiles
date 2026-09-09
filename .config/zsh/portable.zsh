@@ -13,7 +13,7 @@ t() {
     tmux ls 2>/dev/null || echo "usage: t <session-name>"
     return 0
   fi
-  if [ -n "$TMUX" ]; then
+  if [ -n "${TMUX:-}" ]; then
     tmux has-session -t "=$s" 2>/dev/null || tmux new-session -d -s "$s"
     tmux switch-client -t "=$s"
   else
