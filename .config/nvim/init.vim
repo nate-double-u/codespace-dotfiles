@@ -106,7 +106,7 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=grey   ctermbg=237
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=lightgrey ctermbg=236
 
 " # NERDTREE
-let NERDTreeIgnore = ['__pycache__', '\.pyc$', '\.o$', '\.so$', '\.a$', '\.swp', '*\.swp', '\.swo', '\.swn', '\.swh', '\.swm', '\.swl', '\.swk', '\.sw*$', '[a-zA-Z]*egg[a-zA-Z]*', '.DS_Store']
+let NERDTreeIgnore = ['__pycache__', '\.pyc$', '\.o$', '\.so$', '\.a$', '\.swp', '\.swo', '\.swn', '\.swh', '\.swm', '\.swl', '\.swk', '\.sw*$', '[a-zA-Z]*egg[a-zA-Z]*', '.DS_Store']
 
 let NERDTreeShowHidden=1
 let g:NERDTreeWinPos="left"
