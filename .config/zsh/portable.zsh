@@ -3,6 +3,12 @@
 
 export EDITOR=nvim
 
+# muscle memory
+if command -v nvim >/dev/null 2>&1; then
+  alias vi=nvim
+  alias vim=nvim
+fi
+
 # t [name]: attach to or create a named tmux session
 t() {
   local s="${1:-}"
