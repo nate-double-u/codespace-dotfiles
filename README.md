@@ -21,3 +21,4 @@ pick this repo. New codespaces then run `setup.sh`, which installs:
   `gh codespace ssh -- -t "tmux -CC new -A -s <task>"`.
 - Configs are trimmed, portable copies from a private dotfiles repo;
   host-only bits (notes/wiki stack, mac settings) stay out.
+- vi and vim are aliased to nvim.
